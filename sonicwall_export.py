@@ -7,16 +7,16 @@ file = 'sonicwall_xml.xml'
 sonicwall_tree = ET.parse(file)
 
 rules = sonicwall_tree.findall('submode')
-headers = ('id',
-           'action',
-           'source_zone',
-           'destination_zone',
-           'source_address',
-           'source_port',
-           'destination_address',
-           'service',
-           'comment')
-ruleset_table = tablib.Dataset(headers=headers)
+excel_headers = ('ID',
+                 'Action',
+                 'Source Zone',
+                 'Destination Zone',
+                 'Source Address',
+                 'Source Port',
+                 'Destination Address',
+                 'Service',
+                 'Comment')
+ruleset_table = tablib.Dataset(headers=excel_headers)
 
 for rule in rules:
     id = rule.find('id')
@@ -39,10 +39,22 @@ for rule in rules:
                     comment]
     rule_output = []
     for element in element_list:
-        try:
-            rule_output.append(''.join(element.itertext()))
-        except:
+        # Make sure element actually exists, if not just write out an empty string
+        if element is None:
             rule_output.append('')
+        else:
+            # Find any children
+            children = list(element)
+            # Check the last child (ie. last parameter) for text
+            child = children[-1]
+            if child.text is None:
+                # Write out the element tag.
+                # This is because SonicWall uses elements for things like 'any'
+                # consistency is really hard for network vendors...
+                rule_output.append(child.tag)
+            else:
+                rule_output.append(''.join(child.text))
     ruleset_table.append(rule_output)
 
 open('sonicwall_ruleset.xls', 'wb').write(ruleset_table.xls)
+print('The sonicwall ruleset has been written out as sonicwall_ruleset.xls')
