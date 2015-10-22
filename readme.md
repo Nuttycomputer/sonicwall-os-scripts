@@ -16,4 +16,4 @@ Turn on logging if not already done. (See your ssh client for help turning on lo
 
 - show access-rules xml
 
-Then prune the file so you only have the xml document and save as `Sonicwall_xml.xml` in script installation directory.
+Then prune the file so you only have the xml document and save as `sonicwall_xml.xml` in script installation directory.
