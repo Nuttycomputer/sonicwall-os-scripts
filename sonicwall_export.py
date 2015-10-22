@@ -42,7 +42,7 @@ for rule in rules:
         try:
             rule_output.append(''.join(element.itertext()))
         except:
-            rule_output.append(',')
+            rule_output.append('')
     ruleset_table.append(rule_output)
 
 open('sonicwall_ruleset.xls', 'wb').write(ruleset_table.xls)
