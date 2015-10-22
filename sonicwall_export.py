@@ -53,7 +53,12 @@ for rule in rules:
                 # consistency is really hard for network vendors...
                 rule_output.append(child.tag)
             else:
-                rule_output.append(''.join(child.text))
+                # Lets see if we are about to write out the ID param
+                # If so lets convert to integer for Excel's sake
+                if element.tag == 'id':
+                    rule_output.append(int((child.text)))
+                else:
+                    rule_output.append(''.join(child.text))
     ruleset_table.append(rule_output)
 
 open('sonicwall_ruleset.xls', 'wb').write(ruleset_table.xls)
