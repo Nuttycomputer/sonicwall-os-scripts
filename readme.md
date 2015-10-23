@@ -1,6 +1,10 @@
 ## Sonicwall Scripts
 
-### Quick Start
+### sonicwall_export.py
+
+This script outputs an excel spreadsheet of the sonicwall ruleset from an xml file.
+
+#### Quick Start - sonicwall_export.py
 
 #### Install depdendencies:
 

@@ -1,7 +1,10 @@
-__author__ = 'Jay Shepherd'
+#!/usr/bin/env python3
+
+import xml.etree.ElementTree as ET
 
 import tablib
-import xml.etree.ElementTree as ET
+
+__author__ = 'Jay Shepherd'
 
 file = 'sonicwall_xml.xml'
 sonicwall_tree = ET.parse(file)
